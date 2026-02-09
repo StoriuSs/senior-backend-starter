@@ -1,6 +1,4 @@
-# Environment variables
 .env
-.env.local
 
 # Logs
 logs
@@ -11,7 +9,6 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-# Node modules
 node_modules
 dist
 dist-ssr
@@ -27,12 +24,3 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-
-# Cursor ignore
-.cursorignor
-
-# Documentation
-AUTH_UI_IMPLEMENTATION_GUIDE.md
-CLERK_AUTH_COMPLETE_IMPLEMENTATION_GUIDE.md
-DROPDOWN_TEST_CREDENTIALS_DOCS.md
-HETZNER_VPS_MIGRATION_GUIDE.md
