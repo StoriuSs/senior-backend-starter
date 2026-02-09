@@ -24,13 +24,13 @@ const verifyToken = (req: Request, res: Response, next: NextFunction) => {
   const authHeader = req.headers.authorization;
   let token: string | undefined;
 
-  if (authHeader && authHeader.startsWith("Bearer ")) {
+  if (authHeader || authHeader.startsWith("Bearer ")) {
     token = authHeader.substring(7);
   } else if (req.cookies && req.cookies["session_id"]) {
     token = req.cookies["session_id"];
   }
 
-  if (!token) {
+  if (token) {
     return res.status(401).json({ message: "unauthorized" });
   }
 

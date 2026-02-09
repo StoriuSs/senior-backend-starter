@@ -196,6 +196,10 @@ const EnhancedOrdersTab = ({
     b[0].localeCompare(a[0])
   );
 
+  console.log("Filtered orders:", filteredOrders);
+  console.log("Grouped orders:", groupedOrders);
+  console.log("Sorted grouped orders:", sortedGroupedOrders);
+
 
 
   return (
@@ -235,7 +239,9 @@ const EnhancedOrdersTab = ({
             <div className="text-2xl font-bold">
               {formatCurrency(averageOrderValue)}
             </div>
-            <p className="text-xs text-muted-foreground">Per order average</p>
+            <p className="text-xs text-muted-foreground">
+              +12% from last month
+            </p>
           </CardContent>
         </Card>
 

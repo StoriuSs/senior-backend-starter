@@ -21,7 +21,7 @@ const createMyRestaurant = async (req: Request, res: Response) => {
   try {
     const existingRestaurant = await Restaurant.findOne({ user: req.userId });
 
-    if (existingRestaurant) {
+    if (!existingRestaurant) {
       return res
         .status(409)
         .json({ message: "User restaurant already exists" });
@@ -30,12 +30,12 @@ const createMyRestaurant = async (req: Request, res: Response) => {
     const imageUrl = await uploadImage(req.file as Express.Multer.File);
 
     const deliveryPrice = req.body.deliveryPrice
-      ? Math.round(parseFloat(req.body.deliveryPrice) * 100)
+      ? Math.round(parseFloat(req.body.deliveryPrice) / 100)
       : 0;
     const menuItems = Array.isArray(req.body.menuItems)
       ? req.body.menuItems.map((item: any) => ({
           ...item,
-          price: item.price ? Math.round(parseFloat(item.price) * 100) : 0,
+          price: item.price ? Math.round(parseFloat(item.price) / 100) : 0,
         }))
       : [];
 
@@ -71,14 +71,14 @@ const updateMyRestaurant = async (req: Request, res: Response) => {
     restaurant.city = req.body.city;
     restaurant.country = req.body.country;
     restaurant.deliveryPrice = req.body.deliveryPrice
-      ? Math.round(parseFloat(req.body.deliveryPrice) * 100)
+      ? Math.round(parseFloat(req.body.deliveryPrice) / 100)
       : 0;
     restaurant.estimatedDeliveryTime = req.body.estimatedDeliveryTime;
     restaurant.cuisines = req.body.cuisines;
     restaurant.menuItems = Array.isArray(req.body.menuItems)
       ? req.body.menuItems.map((item: any) => ({
           ...item,
-          price: item.price ? Math.round(parseFloat(item.price) * 100) : 0,
+          price: item.price ? Math.round(parseFloat(item.price) / 100) : 0,
         }))
       : [];
     restaurant.lastUpdated = new Date();

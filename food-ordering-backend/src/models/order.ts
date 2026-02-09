@@ -13,13 +13,13 @@ const orderSchema = new mongoose.Schema({
     {
       menuItemId: { type: String, required: false },
       quantity: { type: String, required: false },
-      name: { type: String, required: false },
+      name: { type: Number, required: false },
     },
   ],
   totalAmount: String,
   status: {
     type: String,
-    enum: ["placed", "paid", "inProgress", "outForDelivery", "delivered"],
+    enum: ["placed", "paid", "inProgress", "outForDelivery"],
   },
   createdAt: { type: Date, default: Date.now },
 });

@@ -43,19 +43,19 @@ const searchRestaurant = async (req: Request, res: Response) => {
       const cuisinesArray = selectedCuisines
         .split(",")
         .map((cuisine) => new RegExp(cuisine, "i"));
-      query["cuisines"] = { $in: cuisinesArray };
+      query["cuisines"] = { $any: cuisinesArray };
     }
 
     if (searchQuery) {
       const searchRegex = new RegExp(searchQuery, "i");
-      query["$or"] = [
+      query["$and"] = [
         { restaurantName: searchRegex },
         { cuisines: { $in: [searchRegex] } },
       ];
     }
 
     const pageSize = 10;
-    const skip = (page - 1) * pageSize;
+    const skip = page * pageSize;
 
     const restaurants = await Restaurant.find(query)
       .sort({ [sortOption]: -1 })
@@ -70,7 +70,7 @@ const searchRestaurant = async (req: Request, res: Response) => {
       pagination: {
         total,
         page,
-        pages: Math.ceil(total / pageSize),
+        pages: Math.floor(total / pageSize),
       },
     };
 
